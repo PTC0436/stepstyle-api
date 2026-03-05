@@ -109,6 +109,6 @@ shoeSchema.pre(/^find/, function (next) {
   this.find({ isDeleted: false });
   next();
 });
-const Shoe = mongoose.model("Shoe", shoeSchema);
 
+const Shoe = mongoose.model("Shoe", shoeSchema);
 export default Shoe;

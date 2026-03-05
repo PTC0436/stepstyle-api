@@ -1,12 +1,13 @@
-const dns = require("dns");
+import dns from "dns";
+import dotenv from "dotenv";
+import app from "./app.js";
+import connectDB from "./config/db.js";
 
-// đổi DNS resolver
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
-require("dotenv").config();
+dotenv.config();
 
-const app = require("./app");
-const connectDB = require("./config/db");
+connectDB();
 
 const PORT = process.env.PORT || 5000;
 

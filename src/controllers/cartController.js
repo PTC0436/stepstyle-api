@@ -1,10 +1,9 @@
-const Cart = require("../models/Cart");
-const Shoe = require("../models/Shoe");
+import Cart from "../models/cart.js";
 
 //////////////////////////////
 // GET MY CART
 //////////////////////////////
-exports.getCart = async (req, res) => {
+export const getCart = async (req, res) => {
   const cart = await Cart.findOne({ user: req.user._id }).populate(
     "items.shoe",
   );
@@ -15,7 +14,7 @@ exports.getCart = async (req, res) => {
 //////////////////////////////
 // ADD TO CART
 //////////////////////////////
-exports.addToCart = async (req, res) => {
+export const addToCart = async (req, res) => {
   const { shoeId, quantity, sizeChosen, colorChosen } = req.body;
 
   const shoe = await Shoe.findById(shoeId);
@@ -57,7 +56,7 @@ exports.addToCart = async (req, res) => {
 //////////////////////////////
 // UPDATE QUANTITY
 //////////////////////////////
-exports.updateCartItem = async (req, res) => {
+export const updateCartItem = async (req, res) => {
   const { itemIndex, quantity } = req.body;
 
   const cart = await Cart.findOne({ user: req.user._id });
@@ -72,7 +71,7 @@ exports.updateCartItem = async (req, res) => {
 //////////////////////////////
 // REMOVE ITEM
 //////////////////////////////
-exports.removeCartItem = async (req, res) => {
+export const removeCartItem = async (req, res) => {
   const { itemIndex } = req.body;
 
   const cart = await Cart.findOne({ user: req.user._id });

@@ -1,4 +1,4 @@
-const express = require("express");
+import express from "express";
 
 const app = express();
 
@@ -10,4 +10,4 @@ app.get("/", (req, res) => {
   res.json({ message: "API Running..." });
 });
 
-module.exports = app;
+export default app;

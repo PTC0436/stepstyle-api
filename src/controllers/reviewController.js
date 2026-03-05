@@ -1,10 +1,10 @@
-const Review = require("../models/review");
-const Shoe = require("../models/shoe");
+import Review from "../models/review.js";
+import Shoe from "../models/shoe.js";
 
 //////////////////////////////
 // CREATE REVIEW
 //////////////////////////////
-exports.createReview = async (req, res) => {
+export const createReview = async (req, res) => {
   try {
     const { shoeId, rating, content } = req.body;
 
@@ -26,7 +26,7 @@ exports.createReview = async (req, res) => {
 //////////////////////////////
 // GET REVIEWS BY SHOE
 //////////////////////////////
-exports.getReviewsByShoe = async (req, res) => {
+export const getReviewsByShoe = async (req, res) => {
   const reviews = await Review.find({ shoe: req.params.shoeId }).populate(
     "user",
     "name",
@@ -38,7 +38,7 @@ exports.getReviewsByShoe = async (req, res) => {
 //////////////////////////////
 // DELETE REVIEW
 //////////////////////////////
-exports.deleteReview = async (req, res) => {
+export const deleteReview = async (req, res) => {
   const review = await Review.findById(req.params.reviewId);
 
   if (!review) {

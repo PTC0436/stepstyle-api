@@ -1,7 +1,7 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
 
-exports.protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   let token;
 
   if (req.headers.authorization?.startsWith("Bearer")) {
@@ -23,7 +23,7 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-exports.adminOnly = (req, res, next) => {
+export const adminOnly = (req, res, next) => {
   if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Admin only" });
   }

@@ -1,5 +1,5 @@
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
+import User from "../models/user.js";
+import jwt from "jsonwebtoken";
 
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
@@ -7,7 +7,7 @@ const generateToken = (id) =>
 //////////////////////////////
 // REGISTER
 //////////////////////////////
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
 //////////////////////////////
 // LOGIN
 //////////////////////////////
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select("+password");
@@ -41,6 +41,6 @@ exports.login = async (req, res) => {
 //////////////////////////////
 // GET PROFILE
 //////////////////////////////
-exports.getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   res.json(req.user);
 };

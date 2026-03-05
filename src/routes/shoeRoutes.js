@@ -8,7 +8,7 @@ import {
   getBrandList,
   getGenderList,
   getTagList,
-} from "../controllers/shoe.controller.js";
+} from "../controllers/shoeController.js";
 
 const router = express.Router();
 
