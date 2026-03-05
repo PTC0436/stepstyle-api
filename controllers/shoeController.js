@@ -1,4 +1,4 @@
-import Shoe from "../models/shoe.model.js";
+import Shoe from "../models/shoe.js";
 
 /*
 GET /api/shoes
