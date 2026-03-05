@@ -103,12 +103,11 @@ const shoeSchema = new mongoose.Schema(
 shoeSchema.index({ name: "text", brand: "text", tags: "text" });
 
 //////////////////////////
-// AUTO FILTER SOFT DELETE
+// QUERY HELPER
 //////////////////////////
-shoeSchema.pre(/^find/, function (next) {
-  this.find({ isDeleted: false });
-  next();
-});
+shoeSchema.query.active = function () {
+  return this.where({ isActive: true });
+};
 
 const Shoe = mongoose.model("Shoe", shoeSchema);
 export default Shoe;
