@@ -61,9 +61,10 @@ export const getShoes = async (req, res) => {
 
     const skip = (pageNum - 1) * limitNum;
 
-    const shoes = await Shoe.find(filter).sort(sortOption);
-    // .skip(skip)
-    // .limit(limitNum);
+    const shoes = await Shoe.find(filter)
+      .sort(sortOption)
+      .skip(skip)
+      .limit(limitNum);
 
     const total = await Shoe.countDocuments(filter);
 
@@ -73,11 +74,6 @@ export const getShoes = async (req, res) => {
       limit: limitNum,
       totalPages: Math.ceil(total / limitNum),
       data: shoes,
-      shoesLength: shoes.length,
-      skip: skip,
-      limit: limitNum,
-      query: req.query,
-      filter: filter,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
