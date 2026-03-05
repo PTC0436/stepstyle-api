@@ -77,6 +77,7 @@ export const getShoes = async (req, res) => {
       shoesLength: shoes.length,
       skip: skip,
       limit: limitNum,
+      filter: filter,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
