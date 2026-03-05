@@ -53,10 +53,8 @@ export const getShoes = async (req, res) => {
     }
 
     // sort
-    const sortOption = {};
-    if (sort) {
-      sortOption[sort] = order === "asc" ? 1 : -1;
-    }
+    const sortOption =
+      sort && sort.trim() !== "" ? { [sort]: order === "asc" ? 1 : -1 } : {};
 
     const pageNum = Number(page) || 1;
     const limitNum = Number(limit) || 12;
