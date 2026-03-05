@@ -75,6 +75,8 @@ export const getShoes = async (req, res) => {
       totalPages: Math.ceil(total / limitNum),
       data: shoes,
       shoesLength: shoes.length,
+      skip: skip,
+      limit: limitNum,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
