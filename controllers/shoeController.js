@@ -77,6 +77,7 @@ export const getShoes = async (req, res) => {
       shoesLength: shoes.length,
       skip: skip,
       limit: limitNum,
+      query: req.query,
       filter: filter,
     });
   } catch (err) {
