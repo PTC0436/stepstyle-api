@@ -58,7 +58,7 @@ export const getShoes = async (req, res) => {
       sortOption[sort] = order === "asc" ? 1 : -1;
     }
 
-    const skip = (page - 1) * limit;
+    const skip = (Number(page) - 1) * Number(limit);
 
     const shoes = await Shoe.find(filter)
       .sort(sortOption)
