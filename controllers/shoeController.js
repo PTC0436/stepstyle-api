@@ -58,19 +58,23 @@ export const getShoes = async (req, res) => {
       sortOption[sort] = order === "asc" ? 1 : -1;
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
+    const pageNum = Number(page) || 1;
+    const limitNum = Number(limit) || 12;
+
+    const skip = (pageNum - 1) * limitNum;
 
     const shoes = await Shoe.find(filter)
       .sort(sortOption)
       .skip(skip)
-      .limit(Number(limit));
+      .limit(limitNum);
 
     const total = await Shoe.countDocuments(filter);
 
     res.json({
       total,
-      page: Number(page),
-      limit: Number(limit),
+      page: pageNum,
+      limit: limitNum,
+      totalPages: Math.ceil(total / limitNum),
       data: shoes,
     });
   } catch (err) {
