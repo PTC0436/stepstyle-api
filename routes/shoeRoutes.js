@@ -9,6 +9,7 @@ import {
   getGenderList,
   getTagList,
 } from "../controllers/shoeController.js";
+import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
