@@ -114,6 +114,10 @@ shoeSchema.query.active = function () {
 //////////////////////////
 shoeSchema.set("toJSON", {
   versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+  },
 });
 
 const Shoe = mongoose.model("Shoe", shoeSchema);
