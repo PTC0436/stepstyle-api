@@ -17,9 +17,17 @@ const reviewSchema = new mongoose.Schema(
 
     rating: {
       type: Number,
-      required: true,
-      min: 1,
+      min: 0,
       max: 5,
+      set: (value) => {
+        if (typeof value !== "number") return value;
+
+        // giới hạn trong khoảng 0 - 5
+        const clamped = Math.max(0, Math.min(5, value));
+
+        // làm tròn về bội số 0.5 gần nhất
+        return Math.round(clamped * 2) / 2;
+      },
     },
 
     content: {

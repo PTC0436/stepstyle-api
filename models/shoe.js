@@ -70,11 +70,17 @@ const shoeSchema = new mongoose.Schema(
       min: 0,
     },
 
-    rating: {
+    ratingAverage: {
       type: Number,
       default: 0,
       min: 0,
       max: 5,
+      set: (v) => Math.round(v * 2) / 2,
+    },
+    ratingCount: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
 
     description: String,
