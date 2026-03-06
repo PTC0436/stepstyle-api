@@ -38,5 +38,16 @@ const reviewSchema = new mongoose.Schema(
 //////////////////////////////
 reviewSchema.index({ shoe: 1, user: 1 }, { unique: true });
 
+//////////////////////////
+// HIDE __v field
+//////////////////////////
+reviewSchema.set("toJSON", {
+  versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+
 const Review = mongoose.model("Review", reviewSchema);
 export default Review;

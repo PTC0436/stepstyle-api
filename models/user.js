@@ -73,5 +73,16 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
+//////////////////////////
+// HIDE __v field
+//////////////////////////
+userSchema.set("toJSON", {
+  versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+
 const User = mongoose.model("User", userSchema);
 export default User;

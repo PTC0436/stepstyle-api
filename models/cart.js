@@ -49,5 +49,16 @@ const cartSchema = new mongoose.Schema(
   },
 );
 
+//////////////////////////
+// HIDE __v field
+//////////////////////////
+cartSchema.set("toJSON", {
+  versionKey: false,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});
+
 const Cart = mongoose.model("Cart", cartSchema);
 export default Cart;
