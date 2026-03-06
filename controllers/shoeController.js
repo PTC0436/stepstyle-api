@@ -58,10 +58,19 @@ export const getShoes = async (req, res) => {
 
     const skip = (pageNum - 1) * limitNum;
 
-    const shoes = await Shoe.find(filter, { score: { $meta: "textScore" } })
-      .sort({ ...sortOption, score: { $meta: "textScore" } })
-      .skip(skip)
-      .limit(limitNum);
+    let shoes;
+
+    if (search) {
+      shoes = await Shoe.find(filter, { score: { $meta: "textScore" } })
+        .sort({ score: { $meta: "textScore" }, ...sortOption })
+        .skip(skip)
+        .limit(limitNum);
+    } else {
+      shoes = await Shoe.find(filter)
+        .sort(sortOption)
+        .skip(skip)
+        .limit(limitNum);
+    }
 
     const total = await Shoe.countDocuments(filter);
 
