@@ -62,7 +62,7 @@ export const getShoes = async (req, res) => {
 
     if (search) {
       shoes = await Shoe.find(filter, { score: { $meta: "textScore" } })
-        .sort({ score: { $meta: "textScore" }, ...sortOption })
+        .sort({ ...sortOption, score: { $meta: "textScore" } })
         .skip(skip)
         .limit(limitNum);
     } else {
