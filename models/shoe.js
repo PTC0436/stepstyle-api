@@ -100,7 +100,16 @@ const shoeSchema = new mongoose.Schema(
 //////////////////////////
 // TEXT SEARCH
 //////////////////////////
-shoeSchema.index({ name: "text", brand: "text", tags: "text" });
+shoeSchema.index(
+  { name: "text", brand: "text", tags: "text" },
+  {
+    weights: {
+      name: 5,
+      brand: 3,
+      tags: 1,
+    },
+  },
+);
 
 //////////////////////////
 // QUERY HELPER

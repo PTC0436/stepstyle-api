@@ -46,10 +46,7 @@ export const getShoes = async (req, res) => {
 
     // search name
     if (search) {
-      const keywords = search.split(" ");
-      filter.$and = keywords.map((k) => ({
-        name: { $regex: k, $options: "i" },
-      }));
+      filter.$text = { $search: search };
     }
 
     // sort
@@ -61,8 +58,8 @@ export const getShoes = async (req, res) => {
 
     const skip = (pageNum - 1) * limitNum;
 
-    const shoes = await Shoe.find(filter)
-      .sort(sortOption)
+    const shoes = await Shoe.find(filter, { score: { $meta: "textScore" } })
+      .sort({ ...sortOption, score: { $meta: "textScore" } })
       .skip(skip)
       .limit(limitNum);
 
