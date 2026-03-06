@@ -109,5 +109,12 @@ shoeSchema.query.active = function () {
   return this.where({ isActive: true });
 };
 
+//////////////////////////
+// HIDE __v field
+//////////////////////////
+shoeSchema.set("toJSON", {
+  versionKey: false,
+});
+
 const Shoe = mongoose.model("Shoe", shoeSchema);
 export default Shoe;
