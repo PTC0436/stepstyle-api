@@ -51,15 +51,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    try {
-      const user = await User.findById(req.user._id).select("-password");
-
-      res.json(user);
-    } catch (err) {
-      res.status(500).json({
-        message: err.message,
-      });
-    }
+    const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(401).json({
