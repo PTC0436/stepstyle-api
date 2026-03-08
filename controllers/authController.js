@@ -12,7 +12,7 @@ POST /api/auth/register
 */
 export const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, address } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -28,6 +28,7 @@ export const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      address,
     });
 
     res.status(201).json({
@@ -36,6 +37,7 @@ export const register = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        address,
       },
     });
   } catch (err) {
