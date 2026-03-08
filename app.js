@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import shoeRoutes from "./routes/shoeRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
@@ -7,6 +8,7 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Test route
