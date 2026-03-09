@@ -131,7 +131,8 @@ export const getSimilarShoes = async (req, res) => {
       },
     },
     { $sort: { score: -1 } },
-    { $limit: limit },
+    { $limit: limit * 2 },
+    { $sample: { size: limit } },
   ]);
 
   res.json(similarShoes);
