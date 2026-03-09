@@ -67,7 +67,8 @@ export const getShoes = async (req, res) => {
         )
         .sort({ ...sortOption, score: { $meta: "textScore" } })
         .skip(skip)
-        .limit(limitNum);
+        .limit(limitNum)
+        .lean();
     } else {
       shoes = await Shoe.find(filter)
         .select(
@@ -75,7 +76,8 @@ export const getShoes = async (req, res) => {
         )
         .sort(sortOption)
         .skip(skip)
-        .limit(limitNum);
+        .limit(limitNum)
+        .lean();
     }
 
     const total = await Shoe.countDocuments(filter);
