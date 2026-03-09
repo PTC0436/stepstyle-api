@@ -87,7 +87,7 @@ export const getShoes = async (req, res) => {
 };
 
 /*
-GET /api/products/:id/similar
+GET /api/shoes/:id/similar
 */
 export const getSimilarShoes = async (req, res) => {
   const { id } = req.params;
@@ -95,7 +95,7 @@ export const getSimilarShoes = async (req, res) => {
 
   const shoe = await Shoe.findById(id);
 
-  if (!product) {
+  if (!shoe) {
     return res.status(404).json({ message: "Product not found" });
   }
   const similarShoes = await Shoe.aggregate([
