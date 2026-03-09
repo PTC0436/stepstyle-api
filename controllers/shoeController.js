@@ -70,6 +70,9 @@ export const getShoes = async (req, res) => {
         .limit(limitNum);
     } else {
       shoes = await Shoe.find(filter)
+        .select(
+          "_id name brand price salePrice currency thumbnail ratingAverage ratingCount",
+        )
         .sort(sortOption)
         .skip(skip)
         .limit(limitNum);
