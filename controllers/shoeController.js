@@ -87,6 +87,57 @@ export const getShoes = async (req, res) => {
 };
 
 /*
+GET /api/products/:id/similar
+*/
+export const getSimilarShoes = async (req, res) => {
+  const { id } = req.params;
+  const limit = parseInt(req.query.limit) || 4; // mặc định 4
+
+  const shoe = await Shoe.findById(id);
+
+  if (!product) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+  const similarShoes = await Shoe.aggregate([
+    {
+      $match: {
+        _id: { $ne: shoe._id },
+      },
+    },
+    {
+      $addFields: {
+        score: {
+          $add: [
+            { $cond: [{ $eq: ["$brand", shoe.brand] }, 3, 0] },
+            {
+              $cond: [
+                {
+                  $and: [
+                    { $gte: ["$salePrice", shoe.salePrice * 0.7] },
+                    { $lte: ["$salePrice", shoe.salePrice * 1.3] },
+                  ],
+                },
+                1,
+                0,
+              ],
+            },
+            {
+              $size: {
+                $setIntersection: ["$tags", shoe.tags],
+              },
+            },
+          ],
+        },
+      },
+    },
+    { $sort: { score: -1 } },
+    { $limit: limit },
+  ]);
+
+  res.json(similarShoes);
+};
+
+/*
 GET /api/shoes/:id
 */
 export const getShoeById = async (req, res) => {

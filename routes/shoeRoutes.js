@@ -8,6 +8,7 @@ import {
   getBrandList,
   getGenderList,
   getTagList,
+  getSimilarShoes,
 } from "../controllers/shoeController.js";
 import { protect, adminOnly } from "../middleware/authMiddleware.js";
 
@@ -23,6 +24,9 @@ router.get("/tags", getTagList);
 
 // single shoe
 router.get("/:id", getShoeById);
+
+//similarShoes
+router.get("/:id/similar", getSimilarShoes);
 
 // admin CRUD
 router.post("/", protect, adminOnly, createShoe);
