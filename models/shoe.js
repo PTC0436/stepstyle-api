@@ -29,10 +29,10 @@ const shoeSchema = new mongoose.Schema(
       index: true,
     },
 
-    category: {
-      type: String,
-      required: true,
-    },
+    // category: {
+    //   type: String,
+    //   required: true,
+    // },
 
     gender: {
       type: String,

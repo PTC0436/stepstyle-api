@@ -63,7 +63,7 @@ export const getShoes = async (req, res) => {
     if (search) {
       shoes = await Shoe.find(filter, { score: { $meta: "textScore" } })
         .select(
-          "_id name brand price salePrice currency thumbnail ratingAverage ratingCount",
+          "_id name brand price salePrice currency thumbnail ratingAverage ratingCount tags",
         )
         .sort({ ...sortOption, score: { $meta: "textScore" } })
         .skip(skip)
@@ -71,7 +71,7 @@ export const getShoes = async (req, res) => {
     } else {
       shoes = await Shoe.find(filter)
         .select(
-          "_id name brand price salePrice currency thumbnail ratingAverage ratingCount",
+          "_id name brand price salePrice currency thumbnail ratingAverage ratingCount tags",
         )
         .sort(sortOption)
         .skip(skip)
@@ -151,6 +151,7 @@ export const getSimilarShoes = async (req, res) => {
         thumbnail: 1,
         ratingAverage: 1,
         ratingCount: 1,
+        tags: 1,
       },
     },
   ]);
