@@ -1,10 +1,5 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.js";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-  verifyToken,
-} from "../utils/token.js";
 
 /*
 REGISTER
@@ -67,12 +62,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
-
     res.json({
-      accessToken,
-      refreshToken,
       user: {
         id: user._id,
         name: user.name,
@@ -83,52 +73,4 @@ export const login = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
-
-/*
-REFRESH TOKEN
-POST /api/auth/refresh
-*/
-export const refreshToken = (req, res) => {
-  const { refreshToken } = req.body;
-
-  if (!refreshToken) {
-    return res.status(401).json({
-      message: "Refresh token required",
-    });
-  }
-
-  try {
-    const decoded = verifyToken(refreshToken, process.env.JWT_REFRESH_SECRET);
-
-    const newAccessToken = generateAccessToken(decoded.id);
-
-    res.json({
-      accessToken: newAccessToken,
-    });
-  } catch {
-    res.status(401).json({
-      message: "Invalid refresh token",
-    });
-  }
-};
-
-/*
-LOGOUT
-*/
-export const logout = (req, res) => {
-  // nếu dùng refreshToken DB thì xoá ở đây
-  res.json({
-    message: "Logout success",
-  });
-};
-
-/*
-GET CURRENT USER
-GET /api/auth/me
-*/
-export const getMe = async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
-
-  res.json(user);
 };

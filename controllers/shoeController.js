@@ -162,6 +162,7 @@ export const getSimilarShoes = async (req, res) => {
 /*
 GET /api/shoes/:id
 */
+
 export const getShoeById = async (req, res) => {
   try {
     const shoe = await Shoe.findById(req.params.id);
@@ -171,56 +172,6 @@ export const getShoeById = async (req, res) => {
     }
 
     res.json(shoe);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-/*
-POST /api/shoes
-*/
-export const createShoe = async (req, res) => {
-  try {
-    const shoe = new Shoe(req.body);
-    await shoe.save();
-
-    res.status(201).json(shoe);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-/*
-PUT /api/shoes/:id
-*/
-export const updateShoe = async (req, res) => {
-  try {
-    const shoe = await Shoe.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-
-    if (!shoe) {
-      return res.status(404).json({ message: "Shoe not found" });
-    }
-
-    res.json(shoe);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-};
-
-/*
-DELETE /api/shoes/:id
-*/
-export const deleteShoe = async (req, res) => {
-  try {
-    const shoe = await Shoe.findByIdAndDelete(req.params.id);
-
-    if (!shoe) {
-      return res.status(404).json({ message: "Shoe not found" });
-    }
-
-    res.json({ message: "Shoe deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
